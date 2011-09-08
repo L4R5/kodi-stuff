@@ -1,0 +1,41 @@
+#!/bin/bash
+# script to be run be xbmc launcher plugin
+# only dummy files should be put in the rom dir
+# put the mame internal name in the file
+# Example:
+# cat "Metal Slug 3"
+# mslug3
+
+MAME_VOL_FILE=~/.xbmc/mame_volume
+
+# record current master volume settings
+XBMC_VOL=`aumix -q | grep vol | awk '{print $2 }'`
+
+# load zsnes volume settings
+if [ -f $MAME_VOL_FILE ]
+then
+	. $MAME_VOL_FILE
+fi
+
+if [ ! -z $MAME_VOL ]
+then
+	aumix -v $MAME_VOL
+fi
+
+# start zsnes with zsnes qjoypad profile
+qjoypad MAME
+
+# get mame internal name
+rom=$(cat "$*" | head -1 | awk '{print $1}') 
+
+/usr/games/sdlmame $rom
+
+# switch back to xbmc profile
+
+qjoypad XBMC
+
+# switch back volume settings
+MAME_VOL=`aumix -q | grep vol | awk '{print $2 }'`
+echo "MAME_VOL=$MAME_VOL" > $MAME_VOL_FILE
+
+aumix -v $XBMC_VOL

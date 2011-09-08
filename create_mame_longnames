@@ -1,0 +1,18 @@
+#!/bin/bash
+
+ROMPATH=/media/daten2/emulation/ROMS/Mame/roms
+LINKPATH=~/roms/mame.full
+
+mkdir -p $LINKPATH
+
+sdlmame -listfull | grep -v Name: | while read line
+do 
+	romname=$(echo $line | awk '{print $1}' )
+	longname=$(echo $line | sed -e "s/$romname //g" -e 's/"//g' -e 's/\//\-/g')
+	if [ -e $ROMPATH/$romname.zip ]
+	then
+		ln -s $ROMPATH/$romname.zip "$LINKPATH/$longname.zip"
+	fi
+	echo "$romname: $longname: created"
+done
+
