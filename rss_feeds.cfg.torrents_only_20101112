@@ -1,0 +1,16 @@
+# just put all your links to rss feeds in here. The hash sign will be ignored
+http://ezrss.it/search/index.php?show_name=The+Simpsons&show_name_exact=true&mode=rss
+http://ezrss.it/search/index.php?show_name=Stargate+Atlantis&show_name_exact=true&mode=rss
+http://ezrss.it/search/index.php?show_name=Heroes&show_name_exact=true&mode=rss
+# Naruto
+http://pipes.yahoo.com/pipes/pipe.run?_id=b3463e803af85e1e7d6a0f027a260dd7&_render=rss
+# Flashforward
+http://ezrss.it/search/index.php?simple&show_name=flashforward&mode=rss
+# Stargate universe
+http://ezrss.it/search/index.php?show_name=stargate+universe&date=&quality=&release_group=&mode=rss
+# IT Crowd
+http://ezrss.it/search/index.php?simple&show_name=it+crowd&mode=rss
+# Futurama
+http://ezrss.it/search/index.php?simple&show_name=futurama&mode=rss
+# extra 3
+http://www.ndr.de/fernsehen/sendungen/extra_3/videos/zum_mitnehmen/extradrei196.xml

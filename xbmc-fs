@@ -7,10 +7,13 @@
 #export DISPLAY=`ps | grep X | grep -v grep | perl -e '$line = <STDIN>; $line =~ /\ (:\d+)/; print $1;'`
  
 # start qjoypad with xbmc default layout
+xset s 0
+xset -dpms
+
 qjoypad XBMC &
 
 # set volume to 100
-aumix -v 100
+#aumix -v 100
 
 while true
 do

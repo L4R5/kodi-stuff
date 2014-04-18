@@ -1,0 +1,10 @@
+#! /bin/bash
+
+while true
+do
+  if [ ! -f /home/readonly/xbmc.disabled ]; then
+    /usr/bin/xbmc
+  else
+    sleep 60
+  fi
+done

@@ -1,0 +1,27 @@
+#!/bin/sh
+
+INCOMING=/var/lib/mldonkey/incoming
+DESTINATION=/media/daten/Neu
+
+if [ ! -d $INCOMING ]
+then
+	echo "$INCOMING does does not exist"
+	exit 1
+fi
+
+for i in files directories
+do
+	cd $INCOMING/$i
+	for file in *
+		do 
+			chown -R lars:mediacenter "$file"
+			chmod -R u=rwX,g=rX,o-rwx "$file"
+			# set new acls
+#			test -x /usr/bin/setfacl && setfacl -R -m u::rwX,g:mediacenter-rw:rwX,g:mediacenter:rX,m:rwX,o:--- "$file"
+			# set default acls
+#			test -x /usr/bin/setfacl && setfacl -R -m d:u::rwX,d:g:mediacenter-rw:rwX,d:g:mediacenter:rX,d:m:rwX,d:o:--- "$file"
+			mv -v "$file" $DESTINATION
+		done
+done
+
+
