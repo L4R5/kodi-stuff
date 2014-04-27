@@ -117,6 +117,8 @@ foreach my $feed_url (@feeds) {
 				$cmd_opts = "-r 720p"
 			} elsif ($feed_url =~ /zdf\.de/) {
 				$cmd_opts = "-r high"
+			} elsif ($feed_url =~ /ardmediathek\.de/) {
+				$cmd_opts = "-r high"
 			}
 			my $rc = system("get_flash_videos -y " . $cmd_opts . " -f \"" . $TARGET_DIR . "/" . $channelTitle . " - " . $title. ".mp4\" \"$url\"");
 			print ("get_flash_videos -y " . $cmd_opts . " -f \"" . $TARGET_DIR . "/" . $channelTitle . " - " . $title. ".mp4\" \"$url\"\n");
