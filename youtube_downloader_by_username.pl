@@ -9,7 +9,7 @@ use XML::FeedPP;
 
 #my $source = "http://gdata.youtube.com/feeds/api/playlists/2E696FFCD74D1970";
 
-my $YOUTUBE_FEEDS_CACHE = "/home/xbmc/bin/youtube_feeds.cache";
+my $YOUTUBE_FEEDS_CACHE = "/home/xbmc/etc/youtube_feeds.cache";
 my $TARGET_DIR = "/media/daten1/Neu";
 my $DEBUG = 1;
 my $YT_USER_URL = "http://gdata.youtube.com/feeds/api/users/%USER%/uploads?max-results=50&start-index=%INDEX%";

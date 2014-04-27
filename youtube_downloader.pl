@@ -8,8 +8,8 @@ use XML::FeedPP;
 #my $source = "http://gdata.youtube.com/feeds/api/playlists/2E696FFCD74D1970";
 
 # use relative path for testing
-my $YOUTUBE_FEEDS_CFG = "/home/xbmc/bin/youtube_feeds.cfg";
-my $YOUTUBE_FEEDS_CACHE = "/home/xbmc/bin/youtube_feeds.cache";
+my $YOUTUBE_FEEDS_CFG = "/home/xbmc/etc/youtube_feeds.cfg";
+my $YOUTUBE_FEEDS_CACHE = "/home/xbmc/etc/youtube_feeds.cache";
 # replaced by get_flash_video
 #my $GET_YOUTUBE_VIDEO_URL = "/var/lib/mldonkey/get_youtube_video_url.php";
 my $TARGET_DIR = "/media/daten1/Neu";
