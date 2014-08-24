@@ -14,6 +14,7 @@ else
   exit 0
 fi
 
+cd /home/xbmc/gPodder/Downloads
 gpo update
 gpo download
 
