@@ -2,7 +2,7 @@
 
 while true
 do
-  if [ ! -f /home/readonly/xbmc.disabled ]; then
+  if [ ! -f /home/xbmc/xbmc.disabled ]; then
     /usr/bin/xbmc
   else
     sleep 60

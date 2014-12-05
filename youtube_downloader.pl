@@ -114,7 +114,7 @@ foreach my $feed_url (@feeds) {
 			$channelTitle =~ s/Uploads\ by\ //ig;
 			my $cmd_opts = "";
 			if ($feed_url =~ /gdata\.youtube\.com/) {
-				$cmd_opts = "-r 720p"
+				$cmd_opts = "-r 1080p"
 			} elsif ($feed_url =~ /zdf\.de/) {
 				$cmd_opts = "-r high"
 			} elsif ($feed_url =~ /ardmediathek\.de/) {

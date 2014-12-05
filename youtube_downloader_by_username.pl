@@ -10,7 +10,7 @@ use XML::FeedPP;
 #my $source = "http://gdata.youtube.com/feeds/api/playlists/2E696FFCD74D1970";
 
 my $YOUTUBE_FEEDS_CACHE = "/home/xbmc/etc/youtube_feeds.cache";
-my $TARGET_DIR = "/media/daten1/Neu";
+my $TARGET_DIR = ".";
 my $DEBUG = 1;
 my $YT_USER_URL = "http://gdata.youtube.com/feeds/api/users/%USER%/uploads?max-results=50&start-index=%INDEX%";
 
@@ -80,7 +80,8 @@ my $username = $ARGV[0];
 print "DEBUG: username $username\n" if ($DEBUG);
 
 # read cache
-my %cache = readCache($YOUTUBE_FEEDS_CACHE);
+#my %cache = readCache($YOUTUBE_FEEDS_CACHE);
+my %cache = ();
 
 
 my $indexCounter = 1;
@@ -114,7 +115,8 @@ while ($hasAdditionalVideos) {
 			$title =~ s/\"/\\\"/g;
 			print "DEBUG: title: $title\n" if ($DEBUG);
 			#my $rc = system("wget -O \"$TARGET_DIR/$title.$type\" \"$video_url\"");
-			my $rc = system("get_flash_videos -y -r 720p -f \"" . $TARGET_DIR . "/" . $title. ".mp4\" \"$url\"");
+			#my $rc = system("get_flash_videos -y -r 720p -f \"" . $title. ".mp4\" \"$url\"");
+			my $rc = system("get_flash_videos -y -r 720p \"$url\"");
 			if ($rc == 0) {
 				# add to cache
 				$cache{$url} = 1;
@@ -129,5 +131,5 @@ while ($hasAdditionalVideos) {
 }
 
 
-saveCache($YOUTUBE_FEEDS_CACHE, \%cache);
+#saveCache($YOUTUBE_FEEDS_CACHE, \%cache);
 #print "rc: $rc\n";
