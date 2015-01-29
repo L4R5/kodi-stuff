@@ -116,12 +116,12 @@ while ($hasAdditionalVideos) {
 			print "DEBUG: title: $title\n" if ($DEBUG);
 			#my $rc = system("wget -O \"$TARGET_DIR/$title.$type\" \"$video_url\"");
 			#my $rc = system("get_flash_videos -y -r 720p -f \"" . $title. ".mp4\" \"$url\"");
-			my $rc = system("get_flash_videos -y -r 720p \"$url\"");
+			my $rc = system("get_flash_videos -y -r 1080p \"$url\"");
 			if ($rc == 0) {
 				# add to cache
 				$cache{$url} = 1;
 				# save cache after each download
-				saveCache($YOUTUBE_FEEDS_CACHE, \%cache);
+				#saveCache($YOUTUBE_FEEDS_CACHE, \%cache);
 			}
 			#print "Video URL: $video_url\n";
 			#print "type: $type\n";

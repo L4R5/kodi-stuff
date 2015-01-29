@@ -6,8 +6,7 @@ use Data::Dumper;
 use Getopt::Std;
 
 my $XBMC_JSON_API_URL = "http://127.0.0.1:8080/jsonrpc";
-my $DEFAULT_PATH = "/media/daten1/Neu";
-my $SOURCE_PREFIX = "nfs://192.168.6.3";
+my $DEFAULT_PATH = "/home/xbmc/Neu";
 
 
 my $optString = 'p:eh';
@@ -43,33 +42,12 @@ if (!-d $path) {
 my $rpc = JSON::RPC::LWP->new();
 my $res = $rpc->call(
     $XBMC_JSON_API_URL,
-    'Files.GetDirectory', $SOURCE_PREFIX . $path, "video", ["title", "playcount", "file" ]
+    'Files.GetSources', "video"
     #'{ "directory":"' . $path . '", "media":"video", "properties",[ "title", "playcount", "file" ] }'
   );
 
 my @result = $res->result;
 
-#print Dumper \@result;
+print Dumper \@result;
 
-my %a1 = %{$result[0]};
-
-my @a2 = @{$a1{"files"}};
-
-binmode STDOUT, ":utf8";
-foreach my $file (@a2) {
-  my %file = %{$file};
-  my $name = $file{"file"};
-  my $type = $file{"filetype"};
-  if ( $type eq "file" ) {
-    my $count = $file{"playcount"};
-    #print $name .": " . $count . "\n";
-    if ( defined $count && $count >= 1 ) {
-      $name =~ s/$SOURCE_PREFIX//g;
-      print $name . "\n";
-      if ($execute) {
-        unlink $name
-      }
-    }
-  }
-}
 
