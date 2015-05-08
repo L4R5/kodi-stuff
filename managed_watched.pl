@@ -16,7 +16,7 @@ my $WATCHED_PATH = "/home/xbmc/Neu/angesehen";
 my $WATCH_LIST_CACHE = "/home/xbmc/etc/watch-list.cache";
 # time after which the file will be moved after the files was watched
 # one day = 86400 seconds
-my $MOVE_WAIT_TIME = 86400;
+my $MOVE_WAIT_TIME = 43200;
 #my $MOVE_WAIT_TIME = 10;
 # time after which a file gets deleted 14 days
 my $DELETE_WAIT_TIME = 1209600;
