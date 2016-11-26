@@ -38,12 +38,20 @@ my $DEBUG = 1;
 #
 # 299          mp4        1920x1080  DASH video 5520k , h264, 60fps, video only, 70.71MiB
 # 303          webm       1920x1080  DASH video 5565k , VP9, 60fps, video only, 58.85MiB
+#
+# 271          webm       2560x1440  DASH video 10210k , vp9, 30fps, video only, 270.64MiB
+# 264          mp4        2560x1440  DASH video 12166k , avc1.640032, 30fps, video only, 273.52MiB
+#
+# 266          mp4        3840x2160  DASH video 23868k , avc1.640033, 30fps, video only, 669.87MiB
+# 138          mp4        3840x2160  DASH video 24322k , avc1.640033, 30fps, video only, 573.82MiB
+# 313          webm       3840x2160  DASH video 31379k , vp9, 30fps, video only, 678.65MiB
 
-my @VIDEO_PREFS = ( 299, 303, 137, 248, 298, 302, 136, 247, 135, 244, 134, 243 );
+
+my @VIDEO_PREFS = ( 266, 138, 313, 264, 271, 299, 303, 137, 248, 298, 302, 136, 247, 135, 244, 134, 243 );
 # 171 webm       audio only DASH audio  118k , audio@128k (44100Hz), 3.83MiB
 # 140 m4a        audio only DASH audio  129k , m4a_dash container, aac  @128k (44100Hz), 4.52MiB
 # 141 m4a        audio only DASH audio  255k , m4a_dash container, aac  @256k (44100Hz), 8.97MiB
-my @AUDIO_PREFS = ( 141, 140 );
+my @AUDIO_PREFS = ( 141, 140, 251, 171 );
 
 
 
