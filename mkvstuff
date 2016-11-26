@@ -1,0 +1,2 @@
+# switch default language track in multi audio mkv files
+for i in *.mkv; do mkvpropedit -v "$i" --edit track:a1 --set flag-default=0 --set language=ger --edit track:a2 --set flag-default=1 --set language=eng; done
