@@ -1,0 +1,11 @@
+#!/bin/bash
+
+#echo "$*"
+#echo $PWD
+#docker run --rm -it -v /etc/passwd:/etc/passwd -v /etc/group:/etc/group -v /media:/media -v /home:/home -w "$PWD" --entrypoint="/bin/bash" -u $(id -u):$(id -g) jrottenberg/ffmpeg 
+if [ ! -f /tmp/docker-ffmpeg.pull ]; then
+  docker pull jrottenberg/ffmpeg
+  touch /tmp/docker-ffmpeg.pull
+fi
+
+docker run --rm -it -v /etc/passwd:/etc/passwd -v /etc/group:/etc/group -v /media:/media -v /home:/home -w "$PWD" -u $(id -u):$(id -g) jrottenberg/ffmpeg "$@"
