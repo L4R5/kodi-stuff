@@ -1,0 +1,17 @@
+#!/bin/bash
+#
+set -x
+SOURCE="$1"
+TARGET="$2"
+MAKEMKVCON=/usr/bin/makemkvcon
+
+# find out no of titles
+
+count=$($MAKEMKVCON info file:"$1" -r | grep TCOUNT | cut -f2 -d:)
+
+for i in $(seq 0 $count); do
+   $MAKEMKVCON mkv file:"$1" $i "$2"
+
+done
+
+
