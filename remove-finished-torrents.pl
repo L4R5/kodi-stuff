@@ -21,7 +21,8 @@ while (my $line = <$CMD>) {
   } elsif ($line =~ /State:\ (\w+)/) {
     $state = $1;
     #print "State: $state\n";
-    if ( $state eq "Seeding" || $state eq "Paused" ) {
+    #if ( $state eq "Seeding" || $state eq "Paused" ) {
+    if ( $state eq "Seeding" ) {
       if (qx(grep $id /home/xbmc/etc/deluge-whitelist.conf) eq "$id\n" ) {
         print "ignore torrent (whitelist): $id\n";
         next;
