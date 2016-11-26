@@ -1,0 +1,31 @@
+#!/bin/bash
+{
+set -x
+export HOME=/root
+PS=/bin/ps
+GREP=/bin/grep
+date
+
+# get display number from X server
+display=`$PS a -u root | grep "\/usr\/bin\/X" | grep -v grep | awk '{print $6}'`
+if [ -z $display ]
+then
+	echo X server not running
+fi
+
+if [ ! -z "`$PS aux | $GREP kdm | $GREP -v grep`" ]
+then
+	echo kdm running
+	/usr/bin/x11vnc -inetd -display $display -auth guess -noxdamage -o /var/log/x11vnc_sh.log
+#	/usr/bin/x11vnc -inetd -display :0 -auth /var/run/xauth/* -usepw -noxdamage -o /var/log/x11vnc_sh.log
+elif [ ! -z "`$PS aux | $GREP /usr/lib/gdm/gdm | $GREP -v grep`" ]
+then
+	echo gdm running
+#	/usr/bin/x11vnc -inetd -display $display -auth /var/lib/gdm/\:0.Xauth -noxdamage -o /var/log/x11vnc_sh.log
+	/usr/bin/x11vnc -inetd -display $display -auth guess -noxdamage -o /var/log/x11vnc_sh.log
+elif [ ! -z "$($PS aux | $GREP lightdm | grep -v grep)" ]; then
+	/usr/bin/x11vnc -inetd -display :0 -auth /var/run/lightdm/root/:0 -noxdamage -o /var/log/x11vnc_sh.log
+else
+	echo nothing running
+fi
+} >> /var/log/x11vnc.log 2>&1
