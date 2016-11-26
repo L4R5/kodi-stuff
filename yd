@@ -1,0 +1,3 @@
+#!/bin/bash
+
+youtube-dl --all-subs --embed-subs --convert-subs srt "$@"
