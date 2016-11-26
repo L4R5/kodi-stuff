@@ -11,6 +11,57 @@ use Encode;
 my $XBMC_JSON_API_URL = "http://127.0.0.1:8080/jsonrpc";
 my $DEFAULT_PATH = "/media/daten1/Neu";
 my $SOURCE_PREFIX = "nfs://192.168.6.3";
+my @INSTANT_DELETE = (
+  "^Bananenrepublik1",
+  "^Brodual",
+  "^Cinemassacre",
+  "^CinemaSins\ ",
+  "^Cooking\ with\ Dog",
+  "^DieBananenrepublik",
+  "^Doktor\ Allwissend",
+  "^Games\'n\'Politics",
+  "^GameStar\ \-\ ",
+  "^Grant\ Thompson",
+  "^heise\ online",
+  "^How\ It\ Should\ Have\ Ended",
+  "^Mental\ Floss",
+  "^minutephysics",
+  "^MxR\ Mods",
+  "^ninotakutv",
+  "^Nuclear\ Blast\ Records",
+  "^OpenPandora",
+  "^SciShow",
+  "^Screen\ Junkies",
+  "^SmarterEveryDay",
+  "^The\ Game\ Theorists",
+  "^Tilo\ Jung",
+  "^Veritasium",
+  "^Vsauce",
+  "^Wir\ Probieren",
+  "^heute\-show",
+  "^heute\ show",
+  "^NEO\ MAGAZIN\ ROYALE",
+  "^feministfrequency",
+  "^You\ Need\ A\ Budget\ ",
+  "^CGP\ Grey\ ",
+  "^CineFix\ ",
+  "^ScrewAttack",
+  "^The\ Film\ Theorists\ ",
+  "^The\ 8\-Bit\ Guy\ ",
+  "^Simon\'s\ Cat\ ",
+  "^Kurzgesagt\ ",
+  "^VeganBlackMetalChef\ ",
+  "^Terra\ X\ Lesch\ &\ Co\ ",
+  "^methodisch\ inkorrekt\ ",
+  "^The\ Ben\ Heck\ Show",
+  "^NativLang\ ",
+  "\(OFFICIAL\ TRAILER\)",
+  "^Walulis\ sieht\ fern\ ",
+  "^StayForeverDE\ ",
+  "^sonnenmond8\ ",
+  "^extra\ 3\ ",
+  "^LeschsWelt\ "
+);
 
 my $WATCHED_PATH = "/home/xbmc/Neu/angesehen";
 my $WATCH_LIST_CACHE = "/home/xbmc/etc/watch-list.cache";
@@ -18,20 +69,39 @@ my $WATCH_LIST_CACHE = "/home/xbmc/etc/watch-list.cache";
 # one day = 86400 seconds
 my $MOVE_WAIT_TIME = 43200;
 #my $MOVE_WAIT_TIME = 10;
-# time after which a file gets deleted 14 days
-my $DELETE_WAIT_TIME = 1209600;
+# time after which a file gets deleted 28 days
+my $DELETE_WAIT_TIME = 2419200;
 #my $DELETE_WAIT_TIME = 10;
 
 
-my $optString = 'eh';
+my $optString = 'ehn';
 my %opt = ();
 getopts ($optString, \%opt);
 binmode STDOUT, ":utf8";
 
 sub usage {
-  print "$0 [-e]\n";
+  print "$0 [-e] [-n]\n";
+  print "   [-e] execute\n";
+  print "   [-n] move files now, do not wait\n";
 }
 
+# return 1 (true) if file should instantly be deleted
+# the filename is matched against a list of regular expressions
+# param filename
+sub instantDelete {
+  my $name = shift;
+  my $rc = 0;
+  foreach my $regex(@INSTANT_DELETE) {
+    #print "DEBUG: match ($name) against ($regex)\n";
+    if ($name =~ /$regex/) {
+      #print "DEBUG: match\n";
+      $rc = 1;
+      last;
+    }
+  }
+  return $rc;
+}
+ 
 
 # param: cache file path
 # returns: hashtable of moved files with move time
@@ -85,6 +155,10 @@ my $help = $opt{h};
 if (defined $help) {
   usage();
   exit 0;
+}
+
+if (defined $opt{n}) {
+  $MOVE_WAIT_TIME = 0;
 }
 
 if (!defined $path) {
@@ -157,10 +231,15 @@ foreach my $file (@a2) {
       if ( exists $cache{$basename} ) {
         my $date = $cache{$basename};
         if ( time() - $date >= $MOVE_WAIT_TIME ) {
-          # move file to watched dir after wait time
-          print "move($name, $WATCHED_PATH)\n";
-          move($name, $WATCHED_PATH) if ($execute);
-          $cache{$basename} = time() if ($execute);
+          if (instantDelete($basename)) {
+            print "delete file instantly: $basename\n";
+            unlink($name) if ($execute);
+          } else {
+            # move file to watched dir after wait time
+            print "move($name, $WATCHED_PATH)\n";
+            move($name, $WATCHED_PATH) if ($execute);
+            $cache{$basename} = time() if ($execute);
+          }
         } else {
           print "wait: $name\n";
         }
