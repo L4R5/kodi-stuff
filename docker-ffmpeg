@@ -9,3 +9,10 @@ if [ ! -f /tmp/docker-ffmpeg.pull ]; then
 fi
 
 docker run --rm -it -v /etc/passwd:/etc/passwd -v /etc/group:/etc/group -v /media:/media -v /home:/home -w "$PWD" -u $(id -u):$(id -g) jrottenberg/ffmpeg "$@"
+
+
+
+# examples
+# convert to h265 with crf 23 and opus audio @128 kbit/s
+ffmpeg -i title01.mkv -map 0 -c:v libx265 -x265-params crf=23 -c:a libopus -b:a 128000 -vbr on -compression_level 10 -c:s copy title01-h265-medium-crf25-opus-128k.mkv
+
