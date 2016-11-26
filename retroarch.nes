@@ -1,0 +1,4 @@
+#!/bin/bash
+
+retroarch -L /usr/lib/libretro/fceumm_libretro.so "$1"
+

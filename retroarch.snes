@@ -1,0 +1,4 @@
+#!/bin/bash
+echo "$(date): $0 $*" >> /tmp/retroarch.log
+retroarch -v -L /usr/lib/libretro/snes9x_libretro.so "$1"
+

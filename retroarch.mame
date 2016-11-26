@@ -1,0 +1,4 @@
+#!/bin/bash
+
+retroarch -L /usr/lib/libretro/mame_libretro.so "$1"
+
